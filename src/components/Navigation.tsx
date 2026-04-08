@@ -1,12 +1,12 @@
-import { Home, Heart, BookOpen, Search, ShoppingBasket } from 'lucide-react';
+import { Store, Heart, BookOpen, Search, ShoppingBasket } from 'lucide-react';
 
 export default function Navigation({ currentTab, setTab }: { currentTab: string, setTab: (t: string) => void }) {
   const navItems = [
-    { id: 'home', icon: Home, label: 'Home' },
-    { id: 'favorites', icon: Heart, label: 'Favorites' },
-    { id: 'recipes', icon: BookOpen, label: 'Recipes' },
-    { id: 'browse', icon: Search, label: 'Browse' },
-    { id: 'basket', icon: ShoppingBasket, label: 'Basket' },
+    { id: 'home', icon: Store, label: 'Entdecken' },
+    { id: 'favorites', icon: Heart, label: 'Favoriten' },
+    { id: 'recipes', icon: BookOpen, label: 'Kochen' },
+    { id: 'browse', icon: Search, label: 'Suchen' },
+    { id: 'basket', icon: ShoppingBasket, label: 'Warenkorb' },
   ];
 
   return (
@@ -19,11 +19,18 @@ export default function Navigation({ currentTab, setTab }: { currentTab: string,
             <button
               key={item.id}
               onClick={() => setTab(item.id === 'basket' ? 'cart' : 'home')} // Only home and cart are really implemented
-              className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${
-                isActive ? 'text-red-500' : 'text-gray-400 hover:text-gray-600'
+              className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative ${
+                isActive ? 'text-[#e50016]' : 'text-gray-500 hover:text-gray-600'
               }`}
             >
-              <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
+              <div className="relative">
+                <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
+                {item.id === 'basket' && (
+                  <div className="absolute -top-2 -right-3 bg-[#e50016] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-white">
+                    0.99
+                  </div>
+                )}
+              </div>
               <span className="text-[10px] font-medium">{item.label}</span>
             </button>
           );
